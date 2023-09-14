@@ -1,0 +1,91 @@
+class Point
+{
+    private int x;
+    private int y;
+
+    public int X { get { return x; } }
+    public int Y { get { return y; } }
+
+    public Point(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Figure
+{
+    private Point[] points;
+    public string Name { get; set; }
+
+    public Figure(string name)
+    {
+        points = new Point[5];
+        Name = name;
+    }
+    public Figure(Point a, Point b, Point c,string name):this(name)
+    {
+        points[0] = a;
+        points[1] = b;
+        points[2] = c;
+    }
+
+    public Figure(Point a, Point b, Point c, Point d,string name):this(a,b,c,name)
+    {
+        points[3] = d;
+    }
+
+    public Figure(Point a, Point b, Point c, Point d, Point e, string name):this(a,b,c,d,name)
+    {
+        points[4] = e;
+    }
+
+    private double LengthSide(Point a, Point b)
+    {
+        int dx = a.X - b.X;
+        int dy = a.Y - b.Y;
+        return Math.Sqrt(dx * dx + dy * dy);
+    }
+
+    public void PerimeterCalculator()
+    {
+        double perimeter = 0;
+
+        for (int i = 1; i < points.Length; i++)
+        {
+            perimeter += LengthSide(points[i - 1], points[i]);
+        }
+
+        perimeter += LengthSide(points[points.Length - 1], points[0]);
+
+        Console.WriteLine("Figure: " + Name);
+        Console.WriteLine("Perimeter: " + perimeter);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Point a = new Point(0, 0);
+        Point b = new Point(0, 5);
+        Point c = new Point(5, 0);
+        Figure triangle = new Figure(a, b, c,"Triangle");
+        triangle.PerimeterCalculator();
+
+        Point d = new Point(0, 0);
+        Point e = new Point(0, 10);
+        Point f = new Point(10, 0);
+        Point g = new Point(10, 10);
+        Figure quadrilateral = new Figure(d, e, f, g, "quadrilateral");
+        quadrilateral.PerimeterCalculator();
+
+        Point h = new Point(0, 0);
+        Point y = new Point(0, 10);
+        Point i = new Point(10, 0);
+        Point r = new Point(10, 10);
+        Point q = new Point(10, 20);
+        Figure pentagon = new Figure(d, e, f, g, "pentagon");
+        quadrilateral.PerimeterCalculator();
+    }
+}
